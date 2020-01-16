@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 use Faker\Factory as Faker;
 
-class PegawaisSeeder extends Seeder
+class Siswa extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,12 +20,10 @@ class PegawaisSeeder extends Seeder
         for($x = 1; $x <= 20; $x++){
 
             // insert data dummy pegawai dengan faker
-            DB::table('pegawai')->insert([
+            DB::table('siswa')->insert([
                 'nama' => $faker->name,
-                'email' => $faker->email,
+                'nis' => '12345'.$x,
     			'alamat' => $faker->address,
-    			'telepon' => $faker->phoneNumber,
-    			'pekerjaan' => 'karyawan'
             ]);
 
         }

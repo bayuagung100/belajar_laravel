@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 // panggil model pegawai
 use App\Pegawai;
 
+use PDF;
+
 class PegawaisController extends Controller
 {
     //
     public function index()
     {
     	// mengambil semua data pegawai
-        // $pegawai = Pegawai::all();
+        $pegawai = Pegawai::all();
         
         // mengambil data pegawai yang pertama
         // $pegawai = Pegawai::first(); 
@@ -31,9 +33,23 @@ class PegawaisController extends Controller
         // $pegawai = Pegawai::where('nama', 'like' , '%a%')->get();
     
         // menampilkan 5 data pegawai per halaman
-        $pegawai = Pegawai::paginate(5);
+        // $pegawai = Pegawai::paginate(5);
         
     	// mengirim data pegawai ke view pegawai
     	return view('pegawai', ['pegawai' => $pegawai]);
     }
+
+    public function cetak_pdf()
+    {
+    	$pegawai = Pegawai::all();
+ 
+        $pdf = PDF::loadview('pegawai_pdf',['pegawai'=>$pegawai]);
+        
+        //jika ingin didownload
+        // return $pdf->download('laporan-pegawai-pdf');
+        
+        //langsung tampil di browser
+        return $pdf->stream();
+    }
+
 }
